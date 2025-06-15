@@ -35,15 +35,25 @@ type commands struct {
 	registeredCommands map[string] func(*state, command) error
 }
 
+var commandList *commands
+
 func GetCommands() *commands {
-	newCommands := commands{
+	if commandList == nil {
+		initializeCommandList()
+	}
+
+	return commandList
+}
+
+func initializeCommandList() {
+	newCommandList := commands{
 		registeredCommands: map[string]func(*state, command) error{},
 	}
 
-	newCommands.register("login", handlerLogin)
-	newCommands.register("register", handlerRegister)
+	newCommandList.register("login", handlerLogin)
+	newCommandList.register("register", handlerRegister)
 
-	return &newCommands
+	commandList = &newCommandList
 }
 
 func (c *commands) register(name string, f func(*state, command) error) {
