@@ -4,15 +4,18 @@ import (
 	"fmt"
 
 	"github.com/MrBhop/BlogAggregator/internal/config"
+	"github.com/MrBhop/BlogAggregator/internal/database"
 )
 
 type state struct {
 	Config *config.Config
+	DataBase *database.Queries
 }
 
-func NewState(config *config.Config) *state {
+func NewState(config *config.Config, database *database.Queries) *state {
 	return &state{
 		Config: config,
+		DataBase: database,
 	}
 }
 
@@ -38,6 +41,7 @@ func GetCommands() *commands {
 	}
 
 	newCommands.register("login", handlerLogin)
+	newCommands.register("register", handlerRegister)
 
 	return &newCommands
 }

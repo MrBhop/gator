@@ -1,6 +1,7 @@
 package commands
 
 import (
+	"context"
 	"fmt"
 )
 
@@ -10,8 +11,16 @@ func handlerLogin(s *state, cmd command) error {
 	}
 	userName := cmd.args[0]
 
+	return login(s, userName)
+}
+
+func login(s *state, userName string) error {
+	if _, err := s.DataBase.GetUser(context.Background(), userName); err != nil {
+		return fmt.Errorf("User with name '%v' does not exist", userName)
+	}
+
 	if err := s.Config.SetUser(userName); err != nil {
-		return fmt.Errorf("Couln't set user: %w", err)
+		return fmt.Errorf("Couldn't set user: %w", err)
 	}
 
 	fmt.Println("User name was set")

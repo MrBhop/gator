@@ -1,11 +1,14 @@
 package main
 
 import (
+	"database/sql"
 	"log"
 	"os"
 
-	"github.com/MrBhop/BlogAggregator/internal/config"
 	"github.com/MrBhop/BlogAggregator/internal/commands"
+	"github.com/MrBhop/BlogAggregator/internal/config"
+	"github.com/MrBhop/BlogAggregator/internal/database"
+	_ "github.com/lib/pq"
 )
 
 func main() {
@@ -18,7 +21,13 @@ func main() {
 		log.Fatalf("error reading config: %v\n", err)
 	}
 
-	state := (commands.NewState(&cfg))
+	db, err := sql.Open("postgres", cfg.DbUrl)
+	if err != nil {
+		log.Fatalf("error connecting to the database: %v\n", err)
+	}
+	defer db.Close()
+
+	state := commands.NewState(&cfg, database.New(db))
 	commandList := commands.GetCommands()
 	cmd := commands.NewCommand(os.Args[1], os.Args[2:])
 
