@@ -11,7 +11,7 @@ import (
 
 func handlerRegister(s *state, cmd command) error {
 	if len(cmd.args) == 0 {
-		return fmt.Errorf("Usage: %v <username>", cmd.name)
+		return fmt.Errorf("Usage: %v <username>\n", cmd.name)
 	}
 	userName := cmd.args[0]
 
@@ -30,7 +30,7 @@ func register(s *state, userName string) error {
 	}
 
 	fmt.Printf("User '%v' was created\n", userName)
-	fmt.Print(user)
+	fmt.Println(user)
 
 	return login(s, userName)
 }

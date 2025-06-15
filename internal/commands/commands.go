@@ -53,6 +53,7 @@ func initializeCommandList() {
 	newCommandList.register("login", handlerLogin)
 	newCommandList.register("register", handlerRegister)
 	newCommandList.register("reset", handlerReset)
+	newCommandList.register("users", handlerUsers)
 
 	commandList = &newCommandList
 }
@@ -64,7 +65,7 @@ func (c *commands) register(name string, f func(*state, command) error) {
 func (c *commands) Run(s *state, cmd command) error {
 	callback, exists := c.registeredCommands[cmd.name]
 	if !exists {
-		return fmt.Errorf("command '%v' does not exist", cmd.name)
+		return fmt.Errorf("command '%v' does not exist\n", cmd.name)
 	}
 
 	return callback(s, cmd)

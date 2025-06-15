@@ -5,13 +5,13 @@ import (
 	"fmt"
 )
 
-func handlerReset(s *state, cmd command) error {
+func handlerReset(s *state, _ command) error {
 	err := s.DataBase.Reset(context.Background())
 	if err != nil {
-		return fmt.Errorf("the following error occured, trying to rest the database: %w", err)
+		return fmt.Errorf("Couldn't reset the database: %w\n", err)
 	}
 
-	fmt.Print("database was reset")
+	fmt.Println("database was reset!")
 
 	return nil
 }
