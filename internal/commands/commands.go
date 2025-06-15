@@ -52,6 +52,7 @@ func initializeCommandList() {
 
 	newCommandList.register("login", handlerLogin)
 	newCommandList.register("register", handlerRegister)
+	newCommandList.register("reset", handlerReset)
 
 	commandList = &newCommandList
 }
