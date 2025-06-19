@@ -55,6 +55,7 @@ func initializeCommandList() {
 	newCommandList.register("reset", handlerReset)
 	newCommandList.register("users", handlerUsers)
 	newCommandList.register("agg", handlerAgg)
+	newCommandList.register("addfeed", handlerAddfeed)
 
 	commandList = &newCommandList
 }
