@@ -34,6 +34,5 @@ func handlerAddfeed(s *state, cmd command) error {
 		return fmt.Errorf("couldn't create feed: %w", err)
 	}
 
-	fmt.Printf("Feed was created: \n%+v\n", feed)
-	return nil
+	return follow(s, feed.UserID, feed.ID)
 }

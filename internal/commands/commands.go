@@ -57,6 +57,8 @@ func initializeCommandList() {
 	newCommandList.register("agg", handlerAgg)
 	newCommandList.register("addfeed", handlerAddfeed)
 	newCommandList.register("feeds", handlerFeeds)
+	newCommandList.register("follow", handlerFollow)
+	newCommandList.register("following", handlerFollowing)
 
 	commandList = &newCommandList
 }
