@@ -1,6 +1,7 @@
 package commands
 
 import (
+	"context"
 	"fmt"
 
 	"github.com/MrBhop/BlogAggregator/internal/config"
@@ -31,8 +32,10 @@ func NewCommand(name string, args []string) command {
 	}
 }
 
+type handlerFunction = func(*state, command) error
+
 type commands struct {
-	registeredCommands map[string] func(*state, command) error
+	registeredCommands map[string] handlerFunction
 }
 
 var commandList *commands
@@ -55,10 +58,10 @@ func initializeCommandList() {
 	newCommandList.register("reset", handlerReset)
 	newCommandList.register("users", handlerUsers)
 	newCommandList.register("agg", handlerAgg)
-	newCommandList.register("addfeed", handlerAddfeed)
+	newCommandList.register("addfeed", middlewareLoggedIn(handlerAddfeed))
 	newCommandList.register("feeds", handlerFeeds)
-	newCommandList.register("follow", handlerFollow)
-	newCommandList.register("following", handlerFollowing)
+	newCommandList.register("follow", middlewareLoggedIn(handlerFollow))
+	newCommandList.register("following", middlewareLoggedIn(handlerFollowing))
 
 	commandList = &newCommandList
 }
@@ -74,4 +77,17 @@ func (c *commands) Run(s *state, cmd command) error {
 	}
 
 	return callback(s, cmd)
+}
+
+type middlewareHandlerFunction = func(s *state, cmd command, user database.User) error
+
+func middlewareLoggedIn(handler middlewareHandlerFunction) handlerFunction {
+	return func(s *state, cmd command) error {
+		user, err := s.DataBase.GetUser(context.Background(), s.Config.CurrentUserName)
+		if err != nil {
+			return fmt.Errorf("couldn't fetch current user: %w", err)
+		}
+
+		return handler(s, cmd, user)
+	}
 }

@@ -9,17 +9,12 @@ import (
 	"github.com/google/uuid"
 )
 
-func handlerFollow(s *state, cmd command) error {
+func handlerFollow(s *state, cmd command, user database.User) error {
 	if len(cmd.args) < 1 {
 		return fmt.Errorf("Usage: %v <url>\n", cmd.name)
 	}
 
 	url := cmd.args[0]
-
-	user, err := s.DataBase.GetUser(context.Background(), s.Config.CurrentUserName)
-	if err != nil {
-		return fmt.Errorf("couldn't fetch user: %w\n", err)
-	}
 
 	feed, err := s.DataBase.GetFeedByUrl(context.Background(), url)
 	if err != nil {
