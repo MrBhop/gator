@@ -13,7 +13,6 @@ func handlerFollow(s *state, cmd command, user database.User) error {
 	if len(cmd.args) < 1 {
 		return fmt.Errorf("Usage: %v <url>\n", cmd.name)
 	}
-
 	url := cmd.args[0]
 
 	feed, err := s.DataBase.GetFeedByUrl(context.Background(), url)

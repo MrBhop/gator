@@ -1,1 +1,4 @@
-export CONNECTIONSTRING="postgres://postgres:postgres@localhost:5432/gator"
+#!/usr/bin/env bash
+
+export CONSTRING="postgres://postgres:postgres@localhost:5432/gator"
+echo "CONSTRING exported!"
