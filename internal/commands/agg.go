@@ -3,10 +3,12 @@ package commands
 import (
 	"context"
 	"fmt"
+	"strings"
 	"time"
 
 	"github.com/MrBhop/BlogAggregator/internal/database"
 	"github.com/MrBhop/BlogAggregator/internal/rssFeed"
+	"github.com/google/uuid"
 )
 
 
@@ -41,7 +43,29 @@ func scrapeFeeds(s *state) error {
 	}
 
 	for _, item := range feed.Channel.Item {
-		fmt.Printf("    - %v\n", item.Title)
+		pubDate, err := time.Parse("Mon, 02 Jan 2006 15:04:05 -0700", item.PubDate)
+		if err != nil {
+			return fmt.Errorf("couldn't parse pubDate: %w\n", err)
+		}
+
+		newPost, err := s.DataBase.CreatePost(context.Background(), database.CreatePostParams{
+			ID: uuid.New(),
+			CreatedAt: time.Now(),
+			UpdatedAt: time.Now(),
+			Title: item.Title,
+			Url: item.Link,
+			Description: item.Description,
+			PublishedAt: pubDate,
+			FeedID: nextFeed.ID,
+		})
+		if err != nil {
+			if strings.Contains(err.Error(), "duplicate key value violates unique constraint") {
+				continue
+			}
+			return fmt.Errorf("couldn't create post: %w\n", err)
+		}
+
+		fmt.Printf("    created post: %+v\n", newPost)
 	}
 
 	return nil

@@ -63,6 +63,7 @@ func initializeCommandList() {
 	newCommandList.register("follow", middlewareLoggedIn(handlerFollow))
 	newCommandList.register("following", middlewareLoggedIn(handlerFollowing))
 	newCommandList.register("unfollow", middlewareLoggedIn(handlerUnfollow))
+	newCommandList.register("browse", middlewareLoggedIn(handlerBrowse))
 
 	commandList = &newCommandList
 }
