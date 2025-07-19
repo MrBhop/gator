@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/MrBhop/BlogAggregator/internal/config"
-	"github.com/MrBhop/BlogAggregator/internal/database"
+	"github.com/MrBhop/gator/internal/config"
+	"github.com/MrBhop/gator/internal/database"
 )
 
 type state struct {

@@ -6,8 +6,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/MrBhop/BlogAggregator/internal/database"
-	"github.com/MrBhop/BlogAggregator/internal/rssFeed"
+	"github.com/MrBhop/gator/internal/database"
+	"github.com/MrBhop/gator/internal/rssFeed"
 	"github.com/google/uuid"
 )
 

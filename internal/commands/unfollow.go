@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/MrBhop/BlogAggregator/internal/database"
+	"github.com/MrBhop/gator/internal/database"
 )
 
 func handlerUnfollow(s *state, cmd command, user database.User) error {

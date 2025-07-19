@@ -5,9 +5,9 @@ import (
 	"log"
 	"os"
 
-	"github.com/MrBhop/BlogAggregator/internal/commands"
-	"github.com/MrBhop/BlogAggregator/internal/config"
-	"github.com/MrBhop/BlogAggregator/internal/database"
+	"github.com/MrBhop/gator/internal/commands"
+	"github.com/MrBhop/gator/internal/config"
+	"github.com/MrBhop/gator/internal/database"
 	_ "github.com/lib/pq"
 )
 
