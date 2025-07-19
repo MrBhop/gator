@@ -3,6 +3,8 @@ package commands
 import (
 	"context"
 	"fmt"
+
+	"github.com/MrBhop/BlogAggregator/internal/database"
 )
 
 func handlerFeeds(s *state, _ command) error {
@@ -12,18 +14,23 @@ func handlerFeeds(s *state, _ command) error {
 	}
 
 	for _, feed := range feeds {
-		fmt.Println("{")
-		fmt.Printf("  name: %v\n", feed.Name)
-		fmt.Printf("  URL: %v\n", feed.Url)
-		fmt.Print("  username: ")
-		if feed.Username.Valid {
-			fmt.Printf("%v", feed.Username.String)
-		} else {
-			fmt.Print("None")
-		}
-		fmt.Println()
-		fmt.Println("}")
+		fmt.Println(GetFeedsRowToString(feed))
 	}
 
 	return nil
+}
+
+func GetFeedsRowToString(item database.GetFeedsRow) string {
+	output := "GetFeedsRow{"
+	output += fmt.Sprintf("Name: %v\n", item.Name)
+	output += fmt.Sprintf("URL: %v\n", item.Url)
+	output += "Username: "
+	if item.Username.Valid {
+		output += fmt.Sprint(item.Username)
+	} else {
+		output += "None"
+	}
+	output += fmt.Sprintln()
+	output += fmt.Sprintln("}")
+	return output
 }

@@ -30,7 +30,17 @@ func register(s *state, userName string) error {
 	}
 
 	fmt.Printf("User '%v' was created\n", userName)
-	fmt.Println(user)
+	fmt.Println(userToString(user))
 
 	return login(s, userName)
+}
+
+func userToString(item database.User) string {
+	output := fmt.Sprintln("User{")
+	output += fmt.Sprintf("ID: %v\n", item.ID)
+	output += fmt.Sprintf("CreatedAt: %v\n", item.CreatedAt)
+	output += fmt.Sprintf("UpdatedAt: %v\n", item.UpdatedAt)
+	output += fmt.Sprintf("Name: %v\n", item.Name)
+	output += fmt.Sprintln("}")
+	return output
 }

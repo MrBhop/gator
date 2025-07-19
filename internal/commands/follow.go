@@ -36,6 +36,20 @@ func follow(s *state, userId uuid.UUID, feedId uuid.UUID) error {
 		return fmt.Errorf("couldn't follow feed: %w", err)
 	}
 
-	fmt.Printf("followed feed: \n%+v\n", followEntry)
+	fmt.Printf("followed feed: \n%v\n", CreateFeedFollowRowToString(followEntry))
 	return nil
+}
+
+
+func CreateFeedFollowRowToString(item database.CreateFeedFollowRow) string {
+	output := fmt.Sprintln("CreateFeedFollowRow{")
+	output += fmt.Sprintf("ID: %v\n", item.ID)
+	output += fmt.Sprintf("CreatedAt: %v\n", item.CreatedAt)
+	output += fmt.Sprintf("UpdatedAt: %v\n", item.UpdatedAt)
+	output += fmt.Sprintf("UserID: %v\n", item.UserID)
+	output += fmt.Sprintf("FeedID: %v\n", item.FeedID)
+	output += fmt.Sprintf("UserName: %v\n", item.UserName)
+	output += fmt.Sprintf("FeedName: %v\n", item.FeedName)
+	output += fmt.Sprintln("}")
+	return output
 }
