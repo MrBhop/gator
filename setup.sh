@@ -2,7 +2,7 @@
 
 # user configurable values.
 PASSWORD=postgres
-DATABASE_NAME=test
+DATABASE_NAME=gator
 
 # do not modify below this line.
 # ------------------------------
