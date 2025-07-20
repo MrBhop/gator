@@ -47,7 +47,7 @@ go install github.com/pressly/goose/v3/cmd/goose@latest
 
 ### 4. (Optional) Run `setup.sh`
 The setup script will take care of setting up the database, running the migrations and creating the config file, containing the database url. 
-You can either run the script or do the setup manually as described in the following points. If you run the script you can skip steps 5-7.
+You can either run the script or do the setup manually as described in the following points. If you run the script you can skip steps 5-8.
 Note, the setup script needs Goose to be installed.
 
 By the default the script will create a datbase named `gator` with the password `postgres`, but these values can be changed by editing the variables in the script.
@@ -123,7 +123,9 @@ Assuming the same connection string as step 6, this would result in:
 ```
 
 ### 8. Build The Project
-To build the project run
+(This can be skipped, if you ran the setup script from step 4.)
+
+To install the project run
 ```sh
 go install .
 ```
